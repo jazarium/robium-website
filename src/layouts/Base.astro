@@ -1,0 +1,20 @@
+---
+import '../styles/theme.css';
+const { title = 'robium — robotics skills for AI coding agents' } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="robium equips Claude Code with battle-tested robotics engineering skills — stack selection, simulation, navigation, learned manipulation — to build smoke-tested robot applications."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

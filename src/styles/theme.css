@@ -1,0 +1,68 @@
+@import '@fontsource-variable/inter';
+
+:root {
+  --bg: #090B11;
+  --bg2: #11131A;
+  --card: #161922;
+  --border: rgba(255, 255, 255, 0.08);
+  --accent: #7C5CFF;
+  --accent2: #4DA3FF;
+  --success: #4ADE80;
+  --text: #F7F8FA;
+  --text2: #9CA3AF;
+  --muted: #6B7280;
+  --content-w: 1200px;
+}
+
+* { box-sizing: border-box; margin: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter Variable', system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container { max-width: var(--content-w); margin: 0 auto; padding: 0 24px; }
+
+section { padding: 120px 0; }
+
+h1 { font-size: 64px; font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; }
+h2 { font-size: 40px; font-weight: 700; letter-spacing: -0.01em; }
+
+.label {
+  font-size: 14px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text2); font-weight: 600;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 16px; padding: 24px;
+  transition: transform 150ms ease, border-color 150ms ease;
+}
+.card:hover { transform: translateY(-2px); border-color: rgba(255, 255, 255, 0.16); }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 44px; padding: 0 20px; border-radius: 10px;
+  font-size: 16px; font-weight: 600; text-decoration: none;
+  transition: transform 150ms ease, filter 150ms ease;
+}
+.btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
+.btn-primary { background: linear-gradient(90deg, var(--accent), var(--accent2)); color: #fff; }
+.btn-secondary { border: 1px solid var(--border); color: var(--text); background: transparent; }
+
+@media (max-width: 800px) {
+  h1 { font-size: 40px; }
+  h2 { font-size: 30px; }
+  section { padding: 72px 0; }
+}
