@@ -1,0 +1,52 @@
+---
+import Terminal from './Terminal.astro';
+---
+<section id="apps">
+  <div class="container">
+    <span class="label">Proof, not promises</span>
+    <h2>Built by the plugin. Gated by smoke tests.</h2>
+    <p class="lead">
+      Every reference app in
+      <a href="https://github.com/jazarium/robium-applications">robium-applications</a>
+      is built with the skills and stays green — the apps are the regression
+      suite, and the registry tells the next build what to bootstrap from.
+    </p>
+    <div class="apps-grid">
+      <div class="card app">
+        <h3>nav-trial</h3>
+        <p class="stack">ROS 2 Jazzy · Nav2 · slam_toolbox · Gazebo Harmonic · Docker (arm64) · Foxglove</p>
+        <p>
+          TurtleBot 3 maps its world with SLAM, then navigates goals on the
+          saved map — fully headless on a MacBook, visualized in the browser.
+        </p>
+        <Terminal title="make smoke — nav-trial">
+9/9 waypoints <span class="ts">SUCCEEDED</span> — map saved 111×103
+AMCL localized, 2 map-frame goals <span class="ts">SUCCEEDED</span>
+<span class="ts">PASS: all goals reached</span> · exit 0 · 94 s wall
+</Terminal>
+      </div>
+      <div class="card app">
+        <h3>manip-trial</h3>
+        <p class="stack">LeRobot 0.6.0 · ACT policy · gym-pusht · uv · Apple-silicon MPS</p>
+        <p>
+          An imitation-learning policy trains on the PushT dataset and evaluates
+          in sim with metrics — on a GPU-less laptop. Below: a real evaluation
+          rollout.
+        </p>
+        <video src="/media/pusht-eval.mp4" autoplay loop muted playsinline></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  h2 { margin: 12px 0 8px; }
+  .lead { color: var(--text2); margin-bottom: 48px; max-width: 44em; }
+  .lead a { color: var(--accent2); }
+  .apps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  .app h3 { font-size: 22px; font-family: ui-monospace, Menlo, monospace; }
+  .stack { font-size: 13px; color: var(--muted); margin: 6px 0 12px; }
+  .app p { font-size: 15px; color: var(--text2); margin-bottom: 16px; }
+  video { width: 100%; border-radius: 12px; border: 1px solid var(--border); display: block; }
+  @media (max-width: 900px) { .apps-grid { grid-template-columns: 1fr; } }
+</style>
