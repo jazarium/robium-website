@@ -37,6 +37,7 @@ async function fromLocal() {
 
 async function fromGitHub() {
   const list = await (await fetch('https://api.github.com/repos/jazarium/robium-docs/contents/skills')).json();
+  if (!Array.isArray(list)) return []; // private repo / rate limit → {message: ...}
   const skills = [];
   for (const entry of list) {
     if (entry.type !== 'dir' || SKIP.has(entry.name)) continue;
@@ -53,8 +54,12 @@ try {
   skills = await fromLocal();
   console.log(`fetch-skills: ${skills.length} skills from ${ROBIUM_DIR}`);
 } catch {
-  skills = await fromGitHub();
-  console.log(`fetch-skills: ${skills.length} skills from GitHub API`);
+  try {
+    skills = await fromGitHub();
+    console.log(`fetch-skills: ${skills.length} skills from GitHub API`);
+  } catch {
+    skills = [];
+  }
 }
 
 if (skills.length === 0) {
