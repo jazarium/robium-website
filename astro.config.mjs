@@ -1,6 +1,9 @@
 import { defineConfig } from 'astro/config';
 
+import react from '@astrojs/react';
+
 export default defineConfig({
   site: 'https://robium.org',
   output: 'static',
+  integrations: [react()],
 });

@@ -2,7 +2,7 @@
   {
     "name": "architect",
     "description": "Entry-point skill for designing robotics applications with AI agents. Turns requirements (robot type, task, hardware, sim-vs-real, GPU/budget) into a full stack decision — middleware, simulation, data, visualization, training frameworks — plus a scaffold plan and a written architecture brief.",
-    "version": "1.1.1"
+    "version": "1.2.0"
   },
   {
     "name": "data",
@@ -48,6 +48,11 @@
     "name": "lerobot",
     "description": "HuggingFace LeRobot for physical-AI manipulation: the LeRobotDataset format, loading and recording episodes, training policies (ACT, diffusion, pi0), evaluating in simulation, and teleoperation.",
     "version": "1.1.1"
+  },
+  {
+    "name": "live-demo",
+    "description": "Turn a working robium app into a public, interactive web demo: a mission-control demo page (start/stop instance buttons, live boot terminal, fleet budget), per-visitor simulator instances on Cloud Run (scale-to-zero), and a visualizer handoff (Foxglove deep link or self-hosted viewer).",
+    "version": "1.0.0"
   },
   {
     "name": "nav2",
