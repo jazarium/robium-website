@@ -4,21 +4,25 @@ import { listDir, readFile, type Entry } from '../../lib/demoClient';
 interface Props {
   host: string;
   session: string | null;
+  ready: boolean;
   onOpen: (path: string, content: string) => void;
 }
 
 interface Node { entry: Entry; path: string; depth: number; open?: boolean; children?: Node[]; }
 
-export default function FileTree({ host, session, onOpen }: Props) {
+export default function FileTree({ host, session, ready, onOpen }: Props) {
   const [nodes, setNodes] = useState<Node[]>([]);
 
+  // Load the root when the instance is actually reachable (claimed), not just
+  // when the session UUID exists — the container may still be booting (or may
+  // not have existed) when the session was first created.
   useEffect(() => {
-    setNodes([]);
-    if (!session) return;
+    if (!session || !ready) { setNodes([]); return; }
+    if (nodes.length) return; // already loaded for this session
     listDir(host, session, '')
       .then((r) => setNodes(r.entries.map((e) => ({ entry: e, path: e.name, depth: 0 }))))
       .catch(() => {});
-  }, [host, session]);
+  }, [host, session, ready]);
 
   async function toggle(idx: number) {
     const n = nodes[idx];
@@ -50,6 +54,7 @@ export default function FileTree({ host, session, onOpen }: Props) {
       <div className="pane-head">Files</div>
       <div className="tree">
         {!session && <div className="tab-hint">Start an instance to browse the source.</div>}
+        {session && !nodes.length && <div className="tab-hint">Waiting for the instance to come up…</div>}
         {nodes.map((n, i) => (
           <div
             key={n.path}

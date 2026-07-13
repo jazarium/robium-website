@@ -100,7 +100,7 @@ export default function Workspace({ host: hostProp }: { host: string }) {
         </Panel>
         <Separator className="ws-resize" />
         <Panel defaultSize={24} minSize={14}>
-          <FileTree host={host} session={session} onOpen={(path, content) => { setFile({ path, content }); setTab('editor'); }} />
+          <FileTree host={host} session={session} ready={!!st?.claimed} onOpen={(path, content) => { setFile({ path, content }); setTab('editor'); }} />
         </Panel>
       </Group>
     </div>
