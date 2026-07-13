@@ -74,8 +74,18 @@ smoke test passes; skills visibly drove the stack decisions
     let session, timer;
     const $ = (id) => document.getElementById(id);
 
-    function boot() {
+    async function boot() {
       session = crypto.randomUUID();
+      // Kiosk semantics: wipe the viewer's stored layouts (same-origin
+      // IndexedDB) so every session starts from the baked nav-trial layout —
+      // a previously persisted layout would otherwise shadow it (the
+      // LICHTBLICK_SUITE_DEFAULT_LAYOUT hook only applies when none exist).
+      try {
+        await new Promise((res) => {
+          const req = indexedDB.deleteDatabase('lichtblick-layouts');
+          req.onsuccess = req.onerror = req.onblocked = res;
+        });
+      } catch {}
       const ds = encodeURIComponent(`${wsBase}/?session=${session}`);
       $('viewer').src = `/viewer/?ds=foxglove-websocket&ds.url=${ds}`;
       $('pill').textContent = 'starting…';
