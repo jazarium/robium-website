@@ -33,9 +33,14 @@ const FOXGLOVE_URL =
             <a href="/demos/nav-trial-layout.json" download class="btn btn-secondary">nav-trial-layout.json</a>
           </li>
           <li>
-            <strong>Open your private robot in Foxglove</strong> (free account
-            required — it's the standard robotics viewer):
+            <strong>Open your private robot in Foxglove</strong> — this opens
+            app.foxglove.dev in a new tab (free account required; it's the
+            standard robotics viewer):
             <a href={FOXGLOVE_URL} target="_blank" rel="noopener" class="btn btn-primary">Open in Foxglove →</a>
+            <p class="hint">Not signed into Foxglove yet? Log in when asked,
+            then come back and click this button again — the sign-in redirect
+            drops the connection link. First boot takes ~30–90 s; Foxglove
+            shows "connecting" while your private sim starts.</p>
           </li>
           <li>
             <strong>Import the layout</strong> in Foxglove (Layout menu →
@@ -100,6 +105,7 @@ smoke test passes; skills visibly drove the stack decisions
   .steps { display: grid; gap: 20px; margin: 24px 0 32px; padding-left: 20px; }
   .steps li { color: var(--text2); }
   .steps .btn { margin-left: 12px; height: 38px; padding: 0 16px; font-size: 15px; }
+  .hint { font-size: 13.5px; color: var(--muted); margin-top: 10px; max-width: 42em; }
   .expect ul { margin: 12px 0 0 18px; display: grid; gap: 8px; }
   .expect li { font-size: 15px; color: var(--text2); }
   .repro-sec h2 { margin: 12px 0 8px; }
