@@ -2,12 +2,17 @@ import { useEffect, useRef, useState } from 'react';
 import { Group, Panel, Separator } from 'react-resizable-panels';
 import type { Status } from '../../lib/demoClient';
 import { start as apiStart, status as apiStatus, shutdown as apiShutdown } from '../../lib/demoClient';
+import { wsShutdownUrl } from '../../lib/demoClient';
 import Controls from './Controls';
 import WorkTabs, { type Tab } from './WorkTabs';
 import FileTree from './FileTree';
 import './demo.css';
 
-export default function Workspace({ host }: { host: string }) {
+export default function Workspace({ host: hostProp }: { host: string }) {
+  // Dev override: /demos/nav-trial?host=localhost:8765 points the whole UI at
+  // a local demo container (or ?host=demo.robium.org against prod) — lets
+  // `npm run dev` HMR-iterate the frontend without any redeploy.
+  const host = (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('host')) || hostProp;
   const [session, setSession] = useState<string | null>(null);
   const [st, setSt] = useState<Status | null>(null);
   const [file, setFile] = useState<{ path: string; content: string } | null>(null);
@@ -52,7 +57,7 @@ export default function Workspace({ host }: { host: string }) {
   }
 
   useEffect(() => {
-    const onHide = () => { if (sessionRef.current) navigator.sendBeacon(`https://${host}/shutdown?session=${sessionRef.current}`); };
+    const onHide = () => { if (sessionRef.current) navigator.sendBeacon(wsShutdownUrl(host, sessionRef.current)); };
     window.addEventListener('pagehide', onHide);
     return () => { window.removeEventListener('pagehide', onHide); stopPolling(); };
   }, [host]);

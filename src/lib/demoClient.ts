@@ -1,4 +1,7 @@
-const HTTP = (h: string) => `https://${h}`;
+// localhost/127.* dev backends are plaintext; everything else is TLS.
+const isLocal = (h: string) => /^(localhost|127\.|\[::1\])/.test(h);
+const HTTP = (h: string) => `${isLocal(h) ? 'http' : 'https'}://${h}`;
+const WS = (h: string) => `${isLocal(h) ? 'ws' : 'wss'}://${h}`;
 
 export interface Status {
   claimed: boolean;
@@ -43,10 +46,11 @@ export const writeFile = (h: string, s: string, path: string, content: string) =
     body: content,
   });
 
-export const ptyUrl = (h: string, s: string) => `wss://${h}/pty?session=${s}`;
-export const logsUrl = (h: string, s: string) => `wss://${h}/logs?session=${s}`;
+export const ptyUrl = (h: string, s: string) => `${WS(h)}/pty?session=${s}`;
+export const logsUrl = (h: string, s: string) => `${WS(h)}/logs?session=${s}`;
 export const foxgloveUrl = (h: string, s: string) =>
   `https://app.foxglove.dev/~/view?ds=foxglove-websocket&ds.url=${encodeURIComponent(
-    `wss://${h}/?session=${s}`,
+    `${WS(h)}/?session=${s}`,
   )}`;
+export const wsShutdownUrl = (h: string, s: string) => `${HTTP(h)}/shutdown?session=${s}`;
 export const layoutUrl = '/demos/nav-trial-layout.json';
