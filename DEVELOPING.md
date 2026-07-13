@@ -20,9 +20,34 @@ choice. `demo.robium.org` uses the already-deployed prod gateway — zero
 backend work. (The prod gateway's CORS allows `http://localhost:*`, so
 credentialed fetches from the dev server work.)
 
-## Full local (backend + frontend) — no cloud at all
+## Full local via the orchestrator (recommended) — Start spawns containers for you
 
-Run the demo container locally and point the dev frontend at it:
+Run the **demo-orchestrator** once; then the page's Start actually spawns a
+sim container per session (no manual `make demo`), and Stop removes it —
+mirroring how Cloud Run spins instances up/down in prod.
+
+```bash
+# terminal 1 — the orchestrator (long-lived; owns port 8080, needs Docker up
+# and nav-trial:latest built once via `make build` in apps/nav-trial):
+cd ~/repos/robium.org && make orchestrator
+
+# terminal 2 — frontend:
+npm run dev
+# open: http://localhost:4322/demos/nav-trial   (switcher = "orchestrator (spawns)")
+```
+
+Start → a fresh container is created on an ephemeral port; Stop → it's
+removed; Start again → a new one. The orchestrator enforces the per-demo
+budget (`demo-orchestrator/src/demos.json`, nav-trial = 3) and reaps
+sessions past 30 min. Registry, driver, and API tests: `cd demo-orchestrator
+&& npm test`; full lifecycle: `bash demo-orchestrator/scripts/e2e.sh`.
+
+## Direct-to-container bypass — gateway-only work, no orchestrator
+
+Sometimes you're iterating on the *gateway itself* and want to talk to one
+hand-started container directly. Switch the dev backend selector to
+`direct localhost:8765` (or use `?host=localhost:8765`), and run the container
+yourself:
 
 ```bash
 # terminal 1 — local demo backend (bind-mounts scripts/, so gateway edits

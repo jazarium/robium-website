@@ -2,6 +2,18 @@
 
 Deferred-but-tracked items. Newest on top.
 
+## Demo orchestrator
+
+- **[feature] Cloud driver** — `CloudRunDriver` behind the same `Driver`
+  interface (start/stop/list via the Cloud Run Admin API), plus the deferred
+  govern-vs-own decision from `docs/superpowers/specs/2026-07-13-demo-orchestrator-design.md`.
+  The local orchestrator + registry + frontend are done and driver-agnostic;
+  this is the remaining half.
+- **[ops] Orchestrator hosting** — the local orchestrator runs on the dev
+  machine; the deployed robium.org needs a hosted orchestrator (or the cloud
+  path bypasses it and talks to a per-demo Cloud Run service). Decide with the
+  cloud driver.
+
 ## Demo v4 (IDE workspace)
 
 - **[security] Verify the demo egress lockdown end-to-end.** The protections
