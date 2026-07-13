@@ -68,7 +68,11 @@ export default function Workspace({ host: hostProp }: { host: string }) {
   }
 
   useEffect(() => {
-    const onHide = () => { if (sessionRef.current) navigator.sendBeacon(wsShutdownUrl(host, sessionRef.current)); };
+    // Auto-stop on tab close — but NOT for a local dev backend: a localhost
+    // container is a dev fixture you manage with make/docker, and a refresh
+    // shouldn't nuke it. Cloud instances stay per-session-disposable.
+    const local = /^(localhost|127\.|\[::1\])/.test(host);
+    const onHide = () => { if (sessionRef.current && !local) navigator.sendBeacon(wsShutdownUrl(host, sessionRef.current)); };
     window.addEventListener('pagehide', onHide);
     return () => { window.removeEventListener('pagehide', onHide); stopPolling(); };
   }, [host]);
