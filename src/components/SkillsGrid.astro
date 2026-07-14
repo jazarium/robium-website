@@ -20,6 +20,25 @@ const LOGOS = {
 
 const byName = new Map(skills.map((s) => [s.name, s]));
 
+// Validate that all skill names in pillars.json exist in skills.json.
+// pillars.json is hand-maintained; skills.json is generated. A mismatch is
+// always a bug (skill renamed or removed upstream). Fail the build loudly.
+const missingSkills = new Set<string>();
+for (const pillar of pillars) {
+  for (const skillName of pillar.skills) {
+    if (!byName.has(skillName)) {
+      missingSkills.add(skillName);
+    }
+  }
+}
+if (missingSkills.size > 0) {
+  throw new Error(
+    `Skill mismatch: ${Array.from(missingSkills).join(', ')} named in src/data/pillars.json ` +
+    `but missing from src/data/skills.json (generated from robium repo). ` +
+    `Check if the skill was renamed or removed upstream.`
+  );
+}
+
 const groups = pillars.map((p) => ({
   ...p,
   cards: p.skills
