@@ -1,5 +1,6 @@
 ---
 import { existsSync } from 'node:fs';
+import AgentTabs from './AgentTabs.astro';
 import skills from '../data/skills.json';
 import pillars from '../data/pillars.json';
 
@@ -51,13 +52,18 @@ const groups = pillars.map((p) => ({
 <section id="skills">
   <div class="container">
     <span class="label">Skill catalog</span>
-    <h2>Expertise, grouped by what you're building.</h2>
+    <h2>One stop shop for every robotics skill your AI agent is missing.</h2>
     <p class="lead">
-      Versioned, battle-tested on real builds, and hardened by a continuous
-      learning loop. Every description below is generated from the repo at
-      build time.
+      AI agents are good at code. Robotics asks for more than code — a sprawling
+      stack, scattered docs, and the hard-won judgment that usually lives only in
+      an engineer's head. robium hands your agent that judgment: hand-crafted,
+      well-tested skills, and an architect that turns a plain-language ask into a
+      real stack decision. Install it into the coding agent you already use.
     </p>
 
+    <AgentTabs />
+
+    <div class="catalog">
     {groups.map((g) => (
       <div class="pillar">
         <div class="pillar-head">
@@ -80,12 +86,14 @@ const groups = pillars.map((p) => ({
         </div>
       </div>
     ))}
+    </div>
   </div>
 </section>
 
 <style>
-  h2 { margin: 12px 0 8px; }
-  .lead { color: var(--text2); margin-bottom: 56px; max-width: 40em; }
+  h2 { margin: 12px 0 8px; text-wrap: balance; }
+  .lead { color: var(--text2); margin-bottom: 40px; max-width: 46em; text-wrap: pretty; }
+  .catalog { margin-top: 64px; }
 
   .pillar { margin-bottom: 48px; }
   .pillar-head { margin-bottom: 16px; }

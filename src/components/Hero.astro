@@ -1,8 +1,5 @@
----
-import AgentTabs from './AgentTabs.astro';
----
 <section class="hero">
-  <div class="container hero-stack">
+  <div class="container">
     <div class="hero-copy">
       <h1>The Physical AI expertise <span class="gradient-text">AI agents need</span>.</h1>
       <p class="sub">
@@ -12,15 +9,12 @@ import AgentTabs from './AgentTabs.astro';
         and continuously evolving skills.
       </p>
     </div>
-    <AgentTabs />
   </div>
 </section>
 
 <style>
-  .hero { padding: 100px 0 120px; }
-  .hero-stack { display: grid; gap: 56px; }
+  .hero { padding: 100px 0 100px; }
   .hero-copy { text-align: center; max-width: 960px; margin: 0 auto; }
   .hero-copy h1 { text-wrap: balance; }
   .sub { color: var(--text2); margin: 24px auto 0; max-width: 44em; text-wrap: pretty; }
-  .hero-stack > :global(.tabs) { width: 100%; min-width: 0; }
 </style>
