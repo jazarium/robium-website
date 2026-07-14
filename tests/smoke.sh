@@ -18,7 +18,7 @@ check() {
 
 check "The Physical AI expertise" "hero headline"
 check "agent-cursor" "hero agent tabs"
-check "Smoke test gates done" "how-it-works"
+check "Verified, twice" "how-it-works"
 check "plugin marketplace add jazarium/robium-docs" "install command"
 check "pusht-eval.mp4" "proof video"
 check "Hugging Face" "marquee"
