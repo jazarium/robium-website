@@ -17,7 +17,7 @@ check() {
 }
 
 check "The Physical AI skills" "hero headline"
-check "One stop shop" "skills headline"
+check "Everything your agent needs" "skills headline"
 check "agent-cursor" "agent tabs"
 check "plugin marketplace add jazarium/robium-docs" "install command"
 check "pusht-eval.mp4" "proof video"
@@ -31,6 +31,13 @@ if [[ -z "$URL" ]]; then
   grep -rq "api/instances" dist/_astro/ 2>/dev/null && echo "ok: orchestrator wired" || { echo "FAIL: orchestrator wired"; fail=1; }
   grep -q "/demos/nav-trial" dist/index.html && echo "ok: homepage demo link" || { echo "FAIL: homepage demo link"; fail=1; }
 fi
+
+# The stat counters must show the REAL counts, computed from the data files at
+# build time — never a hand-typed number. Assert the rendered --target matches.
+sk=$(node -e "console.log(require('./src/data/skills.json').length)")
+ig=$(node -e "console.log(require('./src/data/integrations.json').length)")
+grep -q -- "--target: $sk" <<<"$HTML" && echo "ok: skills counter ($sk, real)" || { echo "FAIL: skills counter != $sk"; fail=1; }
+grep -q -- "--target: $ig" <<<"$HTML" && echo "ok: integrations counter ($ig, real)" || { echo "FAIL: integrations counter != $ig"; fail=1; }
 
 tiles=$(grep -o 'class="card skill"' <<<"$HTML" | wc -l | tr -d ' ')
 if [[ "$tiles" -gt 0 ]]; then echo "ok: skill tiles render"; else echo "FAIL: no skill tiles"; fail=1; fi

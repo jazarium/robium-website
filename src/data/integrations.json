@@ -1,0 +1,13 @@
+[
+  { "name": "ROS 2", "file": "ros.svg" },
+  { "name": "Nav2", "file": "nav2.svg" },
+  { "name": "Gazebo", "file": "gazebo.svg" },
+  { "name": "LeRobot", "file": "lerobot.svg" },
+  { "name": "Hugging Face", "file": "huggingface.svg" },
+  { "name": "Isaac Sim", "file": "nvidia.svg" },
+  { "name": "Foxglove", "file": "foxglove.svg" },
+  { "name": "Rerun", "file": "rerun.svg" },
+  { "name": "RViz2", "file": "rviz2.svg" },
+  { "name": "Docker", "file": "docker.svg" },
+  { "name": "uv", "file": "uv.svg" }
+]
