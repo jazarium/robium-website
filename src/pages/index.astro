@@ -12,13 +12,9 @@ import Footer from '../components/Footer.astro';
   <Nav />
   <main>
     <Hero />
-    <!-- Scrolls up over the sticky hero, so it must be opaque. It carries its
-         own glow, since the fixed .glow-field sits behind it. -->
-    <div class="page-body">
-      <SkillsGrid />
-      <Apps />
-      <Marquee />
-    </div>
+    <SkillsGrid />
+    <Apps />
+    <Marquee />
   </main>
   <Footer />
 </Base>
