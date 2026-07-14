@@ -16,7 +16,7 @@ check() {
   if grep -q "$1" <<<"$HTML"; then echo "ok: $2"; else echo "FAIL: $2"; fail=1; fi
 }
 
-check "The Physical AI expertise" "hero headline"
+check "The Physical AI skills" "hero headline"
 check "One stop shop" "skills headline"
 check "agent-cursor" "agent tabs"
 check "plugin marketplace add jazarium/robium-docs" "install command"
