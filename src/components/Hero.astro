@@ -1,5 +1,5 @@
 ---
-import Terminal from './Terminal.astro';
+import AgentTabs from './AgentTabs.astro';
 ---
 <section class="hero">
   <div class="container hero-grid">
@@ -16,19 +16,7 @@ import Terminal from './Terminal.astro';
         <a href="#apps" class="btn btn-secondary">Reference apps</a>
       </div>
     </div>
-    <Terminal title="claude — manip-trial">
-<span class="tp">&gt; start manip-trial</span>
-
-<span class="ta">⏺ robium:architect</span> — manipulation golden path
-  stack: LeRobot 0.6.0 · gym-pusht · uv (Python 3.12) · MPS
-  brief written → docs/architecture-brief.md
-
-<span class="tp">$ make smoke</span>
-tests/test_smoke.py::test_train_completes <span class="ts">PASSED</span>
-tests/test_smoke.py::test_eval_produces_metrics <span class="ts">PASSED</span>
-
-<span class="ts">2 passed</span> in 39.51s
-</Terminal>
+    <AgentTabs />
   </div>
 </section>
 
