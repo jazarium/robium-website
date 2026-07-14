@@ -1,6 +1,3 @@
----
-import Terminal from './Terminal.astro';
----
 <section id="apps">
   <div class="container">
     <span class="label">Proof, not promises</span>
@@ -20,11 +17,6 @@ import Terminal from './Terminal.astro';
           TurtleBot 3 maps its world with SLAM, then navigates goals on the
           saved map — fully headless on a MacBook, visualized in the browser.
         </p>
-        <Terminal title="make smoke — nav-trial">
-9/9 waypoints <span class="ts">SUCCEEDED</span> — map saved 111×103
-AMCL localized, 2 map-frame goals <span class="ts">SUCCEEDED</span>
-<span class="ts">PASS: all goals reached</span> · exit 0 · 94 s wall
-</Terminal>
         <a href="/demos/nav-trial/" class="btn btn-primary demo-btn">Try the live demo →</a>
       </div>
       <div class="card app">
@@ -51,7 +43,7 @@ AMCL localized, 2 map-frame goals <span class="ts">SUCCEEDED</span>
   .stack { font-size: 13px; color: var(--muted); margin: 6px 0 12px; }
   .app p { font-size: 15px; color: var(--text2); margin-bottom: 16px; max-width: 60em; }
   video {
-    width: 100%; max-width: 620px; border-radius: 12px;
+    width: 100%; max-width: 360px; border-radius: 12px;
     border: 1px solid var(--border); display: block;
   }
   .demo-btn { margin-top: 16px; }
