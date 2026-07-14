@@ -17,28 +17,31 @@ import AgentTabs from './AgentTabs.astro';
 </section>
 
 <style>
-  /* Sticky: the hero stays pinned while the sections below scroll up over it.
-     Those sections carry an opaque background and a higher z-index (theme.css). */
+  /* Fills the screen, then stays pinned while .page-body scrolls up over it
+     (that layer is opaque and sits at a higher z-index — see theme.css). */
   .hero {
     position: sticky; top: 0; z-index: 0;
-    padding: 96px 0 72px;
+    min-height: 100svh;
+    display: grid; align-items: center;
+    padding: 88px 0 48px;
   }
-  .hero-stack { display: grid; gap: 48px; }
+  .hero-stack { display: grid; gap: 48px; width: 100%; }
   .hero-copy { text-align: center; max-width: 960px; margin: 0 auto; }
   .hero-copy h1 { text-wrap: balance; }
   .sub { color: var(--text2); margin: 24px auto 0; max-width: 44em; text-wrap: pretty; }
   .hero-stack > :global(.tabs) { width: 100%; min-width: 0; }
 
-  /* Fade the hero out as the next section covers it. Scroll-driven, no JS. */
+  /* As the next section rises over it, the hero drifts up, scales back and
+     fades — a parallax hand-off rather than a hard cut. Scroll-driven CSS. */
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       .hero-stack {
         animation: hero-recede linear both;
         animation-timeline: view();
-        animation-range: exit 0% exit 90%;
+        animation-range: exit 0% exit 100%;
       }
       @keyframes hero-recede {
-        to { opacity: 0; transform: scale(0.96); }
+        to { opacity: 0; transform: translateY(-64px) scale(0.94); }
       }
     }
   }

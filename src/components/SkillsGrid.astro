@@ -60,17 +60,15 @@ const groups = pillars.map((p) => ({
   <div class="container">
     <div class="sec-head">
       <span class="label">Browse skills catalog</span>
-      <h2>Everything your agent needs to build robots.</h2>
 
-      <div class="stats">
-        {stats.map((s) => (
-          <div class="stat">
-            <span class="stat-num" style={`--target: ${s.n}`} aria-hidden="true"></span>
-            <span class="sr-only">{s.n}</span>
-            <span class="stat-label">{s.label}</span>
-          </div>
+      <p class="stats">
+        {stats.map((s, i) => (
+          <span class="stat-line">
+            <span class="stat-num" data-count={s.n}>{s.n}</span>
+            <span class="stat-label">{s.label}</span>{i === 0 ? ',' : ''}
+          </span>
         ))}
-      </div>
+      </p>
 
       <p class="lead">
         AI agents are good at code. Robotics asks for more than code — a sprawling
@@ -110,61 +108,25 @@ const groups = pillars.map((p) => ({
 
 <style>
   .sec-head { text-align: center; margin-bottom: 44px; }
-  h2 { font-size: 52px; line-height: 1.1; margin: 14px auto 0; text-wrap: balance; max-width: 16em; }
-  .lead { color: var(--text2); margin: 0 auto; max-width: 46em; text-wrap: pretty; }
+  .lead { color: var(--text2); margin: 24px auto 0; max-width: 46em; text-wrap: pretty; }
   .catalog { margin-top: 80px; }
 
-  /* Counters. The number is rendered by CSS `counter()` from --n, which the
-     scroll-driven animation below ramps 0 -> --target. --target is set inline
-     from the real build-time count. */
-  @property --n {
-    syntax: '<integer>';
-    initial-value: 0;
-    inherits: false;
-  }
-
+  /* The counters ARE the headline. Each stat sits on its own line. */
   .stats {
-    display: flex; justify-content: center; gap: 72px;
-    margin: 48px 0 40px;
+    margin: 18px 0 0;
+    font-size: 56px; font-weight: 700; line-height: 1.15;
+    letter-spacing: -0.02em; color: var(--text);
   }
-  .stat { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .stat-line { display: block; }
   .stat-num {
-    --n: var(--target);            /* fallback: no animation -> show the real number */
-    counter-reset: num var(--n);
-    font-size: 88px; font-weight: 700; line-height: 1;
-    letter-spacing: -0.03em;
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     -webkit-background-clip: text; background-clip: text; color: transparent;
     font-variant-numeric: tabular-nums;
   }
-  .stat-num::after { content: counter(num); }
-  .stat-label {
-    font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em;
-    color: var(--muted);
-  }
-  .sr-only {
-    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-    overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
-  }
-
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      .stat-num {
-        animation: count-up linear both;
-        animation-timeline: view();
-        animation-range: entry 15% cover 40%;
-      }
-      @keyframes count-up {
-        from { --n: 0; }
-        to   { --n: var(--target); }
-      }
-    }
-  }
+  .stat-label { margin-left: 0.25em; }
 
   @media (max-width: 700px) {
-    h2 { font-size: 34px; }
-    .stats { gap: 40px; }
-    .stat-num { font-size: 60px; }
+    .stats { font-size: 36px; }
   }
 
   .pillar { margin-bottom: 48px; }
@@ -193,3 +155,46 @@ const groups = pillars.map((p) => ({
   @media (max-width: 1000px) { .grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
 </style>
+
+<script>
+  // Count up from 0 when the section first enters the viewport. Fires once.
+  // The target is the real build-time count, already rendered as text — so if
+  // this never runs (JS off, reduced motion), the correct number is on screen.
+  const DURATION = 1200;
+  const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+
+  const section = document.querySelector<HTMLElement>('#skills');
+  const nums = [...document.querySelectorAll<HTMLElement>('#skills .stat-num')];
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (section && nums.length && !reduced) {
+    const run = () => {
+      const start = performance.now();
+      const targets = nums.map((el) => Number(el.dataset.count));
+      nums.forEach((el) => (el.textContent = '0'));
+
+      const tick = (now: number) => {
+        const t = Math.min((now - start) / DURATION, 1);
+        const eased = easeOut(t);
+        nums.forEach((el, i) => {
+          el.textContent = String(Math.round(targets[i] * eased));
+        });
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            io.disconnect(); // once, and only once
+            run();
+          }
+        }
+      },
+      { threshold: 0.25 },
+    );
+    io.observe(section);
+  }
+</script>

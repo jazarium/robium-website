@@ -17,7 +17,7 @@ check() {
 }
 
 check "The Physical AI skills" "hero headline"
-check "Everything your agent needs" "skills headline"
+check "Browse skills catalog" "skills section"
 check "agent-cursor" "agent tabs"
 check "plugin marketplace add jazarium/robium-docs" "install command"
 check "pusht-eval.mp4" "proof video"
@@ -33,11 +33,12 @@ if [[ -z "$URL" ]]; then
 fi
 
 # The stat counters must show the REAL counts, computed from the data files at
-# build time — never a hand-typed number. Assert the rendered --target matches.
+# build time — never a hand-typed number. The final value is server-rendered
+# (JS only animates up to it), so assert the markup carries the true count.
 sk=$(node -e "console.log(require('./src/data/skills.json').length)")
 ig=$(node -e "console.log(require('./src/data/integrations.json').length)")
-grep -q -- "--target: $sk" <<<"$HTML" && echo "ok: skills counter ($sk, real)" || { echo "FAIL: skills counter != $sk"; fail=1; }
-grep -q -- "--target: $ig" <<<"$HTML" && echo "ok: integrations counter ($ig, real)" || { echo "FAIL: integrations counter != $ig"; fail=1; }
+grep -q "data-count=\"$sk\"" <<<"$HTML" && echo "ok: skills counter ($sk, real)" || { echo "FAIL: skills counter != $sk"; fail=1; }
+grep -q "data-count=\"$ig\"" <<<"$HTML" && echo "ok: integrations counter ($ig, real)" || { echo "FAIL: integrations counter != $ig"; fail=1; }
 
 tiles=$(grep -o 'class="card skill"' <<<"$HTML" | wc -l | tr -d ' ')
 if [[ "$tiles" -gt 0 ]]; then echo "ok: skill tiles render"; else echo "FAIL: no skill tiles"; fail=1; fi

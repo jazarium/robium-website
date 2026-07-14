@@ -79,6 +79,28 @@ h2 { font-size: 40px; font-weight: 700; line-height: 1.15; letter-spacing: -0.01
     var(--bg);
 }
 
+/* Skills and demos each fill the screen, like the hero. */
+#skills, #apps {
+  min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: center;
+}
+
+/* Each section's content drifts up and fades in as it enters — so a section
+   arrives rather than cutting in. Scroll-driven; degrades to no motion. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .page-body > section > .container {
+      animation: section-arrive linear both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 75%;
+    }
+    @keyframes section-arrive {
+      from { opacity: 0; transform: translateY(48px); }
+      to { opacity: 1; transform: none; }
+    }
+  }
+}
+
 .glow-field {
   position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background:
