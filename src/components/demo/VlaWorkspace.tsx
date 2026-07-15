@@ -58,7 +58,10 @@ export default function VlaWorkspace() {
       setUnreachable(true);
       return;
     }
-    if (!status) return; // 409 — keep polling
+    // 409 = the gateway still holds a PREVIOUS page-load's claim (refresh
+    // mints a new session id). /start takes the claim over — aborting any
+    // orphaned run — so ask and let the next poll succeed.
+    if (!status) { apiStart(h, s).catch(() => {}); return; }
     if (!status.claimed) { apiStart(h, s).catch(() => {}); return; } // (re)claim
     setSt(status);
   }
