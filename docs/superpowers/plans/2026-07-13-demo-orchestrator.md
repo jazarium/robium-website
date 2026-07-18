@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- New package lives at `/Users/jazarium/repos/robium.org/demo-orchestrator/` (own package.json, tsconfig, tests). The site stays a separate Astro build.
+- New package lives at `/Users/robium-ai/repos/robium.org/demo-orchestrator/` (own package.json, tsconfig, tests). The site stays a separate Astro build.
 - Naming (verbatim from spec): the service is the **demo-orchestrator**; it manages **demos** (registry entries) and **instances** (running containers); the browser then talks to each instance's **gateway** directly. Shared types live in `demo-orchestrator/src/types.ts` and are imported by the frontend.
 - Orchestrator port: `8080` (dev). Base URL in the frontend: `http://localhost:8080` in dev.
 - Lifecycle-only + direct-connect: orchestrator returns `{ id, host, session }`; the browser uses the existing `demoClient` against `host`. Orchestrator never proxies sim traffic.
@@ -128,7 +128,7 @@ Expected: install succeeds, typecheck clean.
 - [ ] **Step 6: Commit**
 
 ```bash
-cd /Users/jazarium/repos/robium.org
+cd /Users/robium-ai/repos/robium.org
 git add demo-orchestrator && git commit -m "feat(orchestrator): package scaffold + shared types + registry
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
@@ -478,7 +478,7 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 
 **Files:**
 - Create: `demo-orchestrator/src/server.ts`, `demo-orchestrator/test/api.test.ts`
-- Modify: root `Makefile` (add `orchestrator` target) — create `/Users/jazarium/repos/robium.org/Makefile` if absent (the site has one).
+- Modify: root `Makefile` (add `orchestrator` target) — create `/Users/robium-ai/repos/robium.org/Makefile` if absent (the site has one).
 
 **Interfaces:**
 - Consumes: `Manager`, `LocalDockerDriver`, `loadDemos`.
@@ -596,7 +596,7 @@ Expected: all API tests pass.
 
 - [ ] **Step 5: Makefile target + live check**
 
-Add to `/Users/jazarium/repos/robium.org/Makefile`:
+Add to `/Users/robium-ai/repos/robium.org/Makefile`:
 ```makefile
 orchestrator:
 	cd demo-orchestrator && npm run start
@@ -733,7 +733,7 @@ The `?host=` override + switcher stay, but relabel the switcher: `orchestrator (
 
 - [ ] **Step 4: Build + smoke**
 
-Run: `cd /Users/jazarium/repos/robium.org && npm run build && make smoke 2>&1 | tail -4`
+Run: `cd /Users/robium-ai/repos/robium.org && npm run build && make smoke 2>&1 | tail -4`
 Expected: build ok; smoke checks pass (island present, orchestrator client referenced). Update `tests/smoke.sh`'s demo block to also assert `grep -rq "api/instances" dist/_astro/` → "ok: orchestrator wired".
 
 - [ ] **Step 5: Manual E2E** (orchestrator + Docker running, no pre-started container)
@@ -765,6 +765,6 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>" && git push
 - [ ] **Step 4: Commit both repos**
 
 ```bash
-cd /Users/jazarium/repos/robium.org && git add DEVELOPING.md docs/BACKLOG.md && git commit -m "docs: orchestrator dev flow + backlog" && git push
-cd /Users/jazarium/repos/robium-applications && git add learnings && git commit -m "learnings: orchestrator pattern for live-demo skill" && git push
+cd /Users/robium-ai/repos/robium.org && git add DEVELOPING.md docs/BACKLOG.md && git commit -m "docs: orchestrator dev flow + backlog" && git push
+cd /Users/robium-ai/repos/robium-applications && git add learnings && git commit -m "learnings: orchestrator pattern for live-demo skill" && git push
 ```

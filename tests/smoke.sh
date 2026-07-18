@@ -19,7 +19,7 @@ check() {
 check "The Physical AI skills" "hero headline"
 check "Browse skills catalog" "skills section"
 check "agent-cursor" "agent tabs"
-check "plugin marketplace add jazarium/robium-plugin" "install command"
+check "plugin marketplace add robium-ai/robium-plugin" "install command"
 check "pusht-eval.mp4" "proof video"
 check "Hugging Face" "marquee"
 

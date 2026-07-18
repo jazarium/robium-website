@@ -1,6 +1,6 @@
 # robium-website
 
-Landing page (served at **robium.ai**) for the [robium](https://github.com/jazarium/robium-plugin) Claude Code
+Landing page (served at **robium.ai**) for the [robium](https://github.com/robium-ai/robium-plugin) Claude Code
 plugin. Astro 6 static site, Dark/Aurora theme, zero client-side JS. All
 content is real: the hero terminal is a condensed transcript from an actual
 build, the skill grid is generated from the repo at build time, and the proof
@@ -39,7 +39,7 @@ same service and 301-redirect to robium.ai in nginx.conf.
 
 ## Launch checklist
 
-- [ ] `jazarium/robium-plugin` repo public (install command + CI catalog fetch)
+- [ ] `robium-ai/robium-plugin` repo public (install command + CI catalog fetch)
 - [ ] `make smoke` green locally and `tests/smoke.sh https://robium.ai` green
 - [ ] Foxglove capture added to the nav-trial card (v1 ships the smoke
       transcript; swap in the image when captured)

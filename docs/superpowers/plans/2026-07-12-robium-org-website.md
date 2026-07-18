@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- Repo root: `/Users/jazarium/repos/robium.org` (git initialized, `main`).
+- Repo root: `/Users/robium-ai/repos/robium.org` (git initialized, `main`).
 - **Real content only** — every transcript, metric, command, and skill description on the page is real; the design-system doc's fake `robium.yaml` composer must NOT appear.
 - Design tokens verbatim (from spec): bg `#090B11`, bg2 `#11131A`, card `#161922`, border `rgba(255,255,255,0.08)`, accent `#7C5CFF`, gradient `#7C5CFF→#4DA3FF`, success `#4ADE80`, text `#F7F8FA`/`#9CA3AF`/`#6B7280`; Inter; hero 64px/700/1.05; sections 40px/700; body 18px; labels 14px uppercase tracked; content 1200px; sections 120–160px vertical; cards 24px pad/16px radius; buttons 44px/10px radius; hover translateY(-2px) 150ms; Lucide icons; faint radial glows, no particles/glassmorphism.
 - Zero client-side JavaScript in the built site (CSS-only marquee).
@@ -181,7 +181,7 @@ import Base from '../layouts/Base.astro';
 
 - [ ] **Step 2: Install and verify the build fails only on the missing script**
 
-Run: `cd /Users/jazarium/repos/robium.org && npm install && npm run build`
+Run: `cd /Users/robium-ai/repos/robium.org && npm install && npm run build`
 Expected: FAIL — `Cannot find module ... scripts/fetch-skills.mjs` (build script references it; Task 2 provides it).
 
 - [ ] **Step 3: Stub the script minimally so the scaffold builds**
@@ -213,7 +213,7 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 
 **Interfaces:**
 - Produces: `src/data/skills.json` — array of `{ name: string, description: string, version: string }`, ≥ 20 entries, sorted by name. Task 6 imports it.
-- Consumes: local robium checkout at `$ROBIUM_DIR` (default `~/repos/robium`), falling back to the GitHub API (`https://api.github.com/repos/jazarium/robium-docs/contents/skills`).
+- Consumes: local robium checkout at `$ROBIUM_DIR` (default `~/repos/robium`), falling back to the GitHub API (`https://api.github.com/repos/robium-ai/robium-docs/contents/skills`).
 
 - [ ] **Step 1: Write the generator (full file)**
 
@@ -256,11 +256,11 @@ async function fromLocal() {
 }
 
 async function fromGitHub() {
-  const list = await (await fetch('https://api.github.com/repos/jazarium/robium-docs/contents/skills')).json();
+  const list = await (await fetch('https://api.github.com/repos/robium-ai/robium-docs/contents/skills')).json();
   const skills = [];
   for (const entry of list) {
     if (entry.type !== 'dir' || SKIP.has(entry.name)) continue;
-    const res = await fetch(`https://raw.githubusercontent.com/jazarium/robium-docs/main/skills/${entry.name}/SKILL.md`);
+    const res = await fetch(`https://raw.githubusercontent.com/robium-ai/robium-docs/main/skills/${entry.name}/SKILL.md`);
     if (!res.ok) continue;
     const parsed = parseFrontmatter(await res.text());
     if (parsed) skills.push(parsed);
@@ -333,7 +333,7 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
       <a href="#apps">Apps</a>
     </nav>
     <div class="actions">
-      <a href="https://github.com/jazarium/robium-docs" aria-label="GitHub" class="gh">
+      <a href="https://github.com/robium-ai/robium-docs" aria-label="GitHub" class="gh">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.93c.58.1.79-.25.79-.56v-2.17c-3.2.7-3.87-1.37-3.87-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.05.78 2.13v3.16c0 .31.2.67.8.55A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5z"/></svg>
       </a>
       <a href="#get-started" class="btn btn-primary">Get Started</a>
@@ -367,9 +367,9 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
   <div class="container footer-inner">
     <span class="muted">robium — MIT license</span>
     <nav class="flinks">
-      <a href="https://github.com/jazarium/robium-docs">GitHub</a>
-      <a href="https://github.com/jazarium/robium-applications">Sample apps</a>
-      <a href="mailto:jazarium@gmail.com">Contact</a>
+      <a href="https://github.com/robium-ai/robium-docs">GitHub</a>
+      <a href="https://github.com/robium-ai/robium-applications">Sample apps</a>
+      <a href="mailto:admin@robium.ai">Contact</a>
     </nav>
   </div>
 </footer>
@@ -492,7 +492,7 @@ import Terminal from './Terminal.astro';
       </p>
       <div class="ctas">
         <a href="#get-started" class="btn btn-primary">Get Started →</a>
-        <a href="https://github.com/jazarium/robium-docs" class="btn btn-secondary">GitHub</a>
+        <a href="https://github.com/robium-ai/robium-docs" class="btn btn-secondary">GitHub</a>
       </div>
     </div>
     <Terminal title="claude — manip-trial">
@@ -733,10 +733,10 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 
 Run:
 ```bash
-cp /Users/jazarium/repos/robium-applications/apps/manip-trial/outputs/eval/baseline/videos/pusht_0/eval_episode_0.mp4 public/media/pusht-eval.mp4
+cp /Users/robium-ai/repos/robium-applications/apps/manip-trial/outputs/eval/baseline/videos/pusht_0/eval_episode_0.mp4 public/media/pusht-eval.mp4
 ls -la public/media/
 ```
-Expected: `pusht-eval.mp4` present (a few hundred KB). If manip-trial `outputs/` was cleaned, regenerate first: `cd /Users/jazarium/repos/robium-applications/apps/manip-trial && make baseline-eval` (or `make eval-trained` and use `outputs/eval/smoke/videos/pusht_0/eval_episode_0.mp4`).
+Expected: `pusht-eval.mp4` present (a few hundred KB). If manip-trial `outputs/` was cleaned, regenerate first: `cd /Users/robium-ai/repos/robium-applications/apps/manip-trial && make baseline-eval` (or `make eval-trained` and use `outputs/eval/smoke/videos/pusht_0/eval_episode_0.mp4`).
 
 - [ ] **Step 2: Write component (nav-trial card uses its REAL smoke transcript; image swap-in is a follow-up when the Foxglove capture exists)**
 
@@ -751,7 +751,7 @@ import Terminal from './Terminal.astro';
     <h2>Built by the plugin. Gated by smoke tests.</h2>
     <p class="lead">
       Every reference app in
-      <a href="https://github.com/jazarium/robium-applications">robium-applications</a>
+      <a href="https://github.com/robium-ai/robium-applications">robium-applications</a>
       is built with the skills and stays green — the apps are the regression
       suite, and the registry tells the next build what to bootstrap from.
     </p>
@@ -926,7 +926,7 @@ import Terminal from './Terminal.astro';
     <span class="label">Get started</span>
     <h2>Two commands in Claude Code.</h2>
     <Terminal title="claude">
-<span class="tp">/plugin marketplace add jazarium/robium-docs</span>
+<span class="tp">/plugin marketplace add robium-ai/robium-docs</span>
 <span class="tp">/plugin install robium@robium</span>
 
 <span class="ts">✓</span> 20 robotics skills loaded — start with:
@@ -934,7 +934,7 @@ import Terminal from './Terminal.astro';
 </Terminal>
     <p class="after">
       Then just describe your robot application. Full docs in the
-      <a href="https://github.com/jazarium/robium-docs#readme">README</a>.
+      <a href="https://github.com/robium-ai/robium-docs#readme">README</a>.
     </p>
   </div>
 </section>
@@ -949,7 +949,7 @@ import Terminal from './Terminal.astro';
 
 - [ ] **Step 2: Verify**
 
-Run: `npm run build && grep -q "plugin marketplace add jazarium/robium-docs" dist/index.html && echo OK`
+Run: `npm run build && grep -q "plugin marketplace add robium-ai/robium-docs" dist/index.html && echo OK`
 Expected: `OK`
 
 - [ ] **Step 3: Commit**
@@ -995,7 +995,7 @@ check() {
 check "robotics-ready" "hero headline"
 check "39.51s" "hero real transcript"
 check "Smoke test gates done" "how-it-works"
-check "plugin marketplace add jazarium/robium-docs" "install command"
+check "plugin marketplace add robium-ai/robium-docs" "install command"
 check "pusht-eval.mp4" "proof video"
 check "Hugging Face" "marquee"
 
@@ -1164,7 +1164,7 @@ options:
 ```markdown
 # robium.org
 
-Landing page for the [robium](https://github.com/jazarium/robium-docs) Claude Code
+Landing page for the [robium](https://github.com/robium-ai/robium-docs) Claude Code
 plugin. Astro 6 static site, Dark/Aurora theme, zero client-side JS. All
 content is real: the hero terminal is a condensed transcript from an actual
 build, the skill grid is generated from the repo at build time, and the proof
@@ -1201,7 +1201,7 @@ add the printed DNS records at the registrar. TLS is managed automatically.
 
 ## Launch checklist
 
-- [ ] `jazarium/robium-docs` repo public (install command + CI catalog fetch)
+- [ ] `robium-ai/robium-docs` repo public (install command + CI catalog fetch)
 - [ ] `make smoke` green locally and `tests/smoke.sh https://robium.org` green
 - [ ] Foxglove capture added to the nav-trial card (v1 ships the smoke
       transcript; swap in the image when captured)

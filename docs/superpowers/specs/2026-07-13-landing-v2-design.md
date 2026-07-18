@@ -59,7 +59,7 @@ exact four domains. Promise and evidence become adjacent.
 
 **CTAs:** `[Drive a live robot →]` → `/demos/nav-trial/` (primary — the live sim
 is the moat) and `[Reference apps]` → `#apps`. The existing GitHub CTA is
-**removed**: `github.com/jazarium/robium-docs` is private and 404s for every visitor.
+**removed**: `github.com/robium-ai/robium-docs` is private and 404s for every visitor.
 
 **Right panel — agent install tabs (replaces the terminal transcript).**
 
@@ -75,7 +75,7 @@ agent-agnostic claim rather than asserting it.
   `:checked ~` sibling selectors. No React island, no client-side JS on the
   landing page.
 - **Claude Code** shows the real commands (`/plugin marketplace add
-  jazarium/robium-docs`, `/plugin install robium@robium`).
+  robium-ai/robium-docs`, `/plugin install robium@robium`).
 - **Cursor and Gemini** show the intended shape with a small state marker on the
   tab. Their manifests **do not exist** — robium ships `skills/` and `agents/`
   and nothing else; AGENTS.md and the Cursor/Gemini manifests sit under "Later"

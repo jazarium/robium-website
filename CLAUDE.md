@@ -17,7 +17,7 @@ or link to .org/.dev as the primary; always use robium.ai. The site serves
 robium.ai (nginx `default_server`); .org/.dev + all `www.` variants redirect to
 it. The live-demo gateway is same-site at **demo.robium.ai** (it MUST share
 robium.ai's registrable domain, or the `SameSite=Lax` affinity cookie breaks).
-This repo is **robium-website** (GitHub `jazarium/robium-website`, local
+This repo is **robium-website** (GitHub `robium-ai/robium-website`, local
 `~/repos/robium-website`), renamed from robium.org; old URLs redirect. The
 domain it serves is robium.ai — repo name and domain are intentionally
 different. Two products in one repo — the site (`src/`) and the demo stack

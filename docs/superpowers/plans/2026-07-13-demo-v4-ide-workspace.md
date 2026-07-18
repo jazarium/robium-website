@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- Repos: gateway/backend + deploy in `/Users/jazarium/repos/robium-applications/apps/nav-trial` (capture learnings per that repo's rules); frontend in `/Users/jazarium/repos/robium.org`.
+- Repos: gateway/backend + deploy in `/Users/robium-ai/repos/robium-applications/apps/nav-trial` (capture learnings per that repo's rules); frontend in `/Users/robium-ai/repos/robium.org`.
 - **Phase 1 before Phase 2, always** — no interactive shell endpoint may be deployed to a reachable URL until the zero-perm SA (Task 1) and egress lockdown (Task 2) are live. Tasks 3–5 add the shell only after 1–2 land.
 - Demo host: `demo.robium.org` (same-site; affinity cookie + `credentials:'include'` + exact-origin CORS `https://robium.org`, as shipped).
 - Gateway endpoints are all session-UUID guarded; a mismatched session → 403 (control) / 409 (status) / 503 (claim).
@@ -66,7 +66,7 @@ In `apps/nav-trial/Makefile` `demo-deploy`, add to the flag list:
 - [ ] **Step 4: Deploy and verify the token is powerless**
 
 ```bash
-cd /Users/jazarium/repos/robium-applications/apps/nav-trial && make demo-image && make demo-deploy
+cd /Users/robium-ai/repos/robium-applications/apps/nav-trial && make demo-image && make demo-deploy
 ```
 After deploy, exec the running instance is not possible on Cloud Run; instead verify via a scratch check in Task 3's PTY once available. For now confirm the service came up:
 ```bash
@@ -77,7 +77,7 @@ Expected: `fleet: {'running': None, 'budget': 5}`
 - [ ] **Step 5: Commit**
 
 ```bash
-cd /Users/jazarium/repos/robium-applications
+cd /Users/robium-ai/repos/robium-applications
 git add apps/nav-trial && git commit -m "security(nav-trial): demo runs as zero-permission SA; live fleet disabled (was monitoring.viewer)
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
@@ -115,7 +115,7 @@ In `demo-deploy`, add:
 - [ ] **Step 3: Deploy and confirm the demo still boots**
 
 ```bash
-cd /Users/jazarium/repos/robium-applications/apps/nav-trial && make demo-deploy
+cd /Users/robium-ai/repos/robium-applications/apps/nav-trial && make demo-deploy
 ```
 Hold a ws + poll to ready (reuse the verified pattern):
 ```bash
@@ -126,7 +126,7 @@ Expected: `"ready": true` (the sim needs no egress — Gazebo runs offline, veri
 - [ ] **Step 4: Commit**
 
 ```bash
-cd /Users/jazarium/repos/robium-applications
+cd /Users/robium-ai/repos/robium-applications
 git add apps/nav-trial && git commit -m "security(nav-trial): VPC deny-all egress on the demo container
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
@@ -296,7 +296,7 @@ Makefile addition (local: egress isn't blocked locally, so gate the egress asser
 
 - [ ] **Step 3: Run local smoke**
 
-`cd /Users/jazarium/repos/robium-applications/apps/nav-trial && make demo-smoke`
+`cd /Users/robium-ai/repos/robium-applications/apps/nav-trial && make demo-smoke`
 Expected: `PTY OK` line (local egress test is informational locally), then `DEMO SMOKE PASS`.
 
 - [ ] **Step 4: Commit**
@@ -366,7 +366,7 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 - [ ] **Step 1: Build, deploy, cloud-verify PTY + egress + fs**
 
 ```bash
-cd /Users/jazarium/repos/robium-applications/apps/nav-trial && make demo-image && make demo-deploy
+cd /Users/robium-ai/repos/robium-applications/apps/nav-trial && make demo-image && make demo-deploy
 S=phase1$RANDOM
 ( curl -s --http1.1 -N --max-time 500 -o /dev/null -H "Connection: Upgrade" -H "Upgrade: websocket" -H "Sec-WebSocket-Version: 13" -H "Sec-WebSocket-Key: $(openssl rand -base64 16)" -H "Sec-WebSocket-Protocol: foxglove.sdk.v1" "https://demo.robium.org/?session=$S" & )
 curl -s -X POST "https://demo.robium.org/start?session=$S" >/dev/null
@@ -380,7 +380,7 @@ Expected: `PTY OK + EGRESS BLOCKED` (this is the security gate — egress MUST b
 - [ ] **Step 2: Push**
 
 ```bash
-cd /Users/jazarium/repos/robium-applications && git push
+cd /Users/robium-ai/repos/robium-applications && git push
 ```
 
 ---
@@ -399,7 +399,7 @@ cd /Users/jazarium/repos/robium-applications && git push
 - [ ] **Step 1: Add React + libs**
 
 ```bash
-cd /Users/jazarium/repos/robium.org
+cd /Users/robium-ai/repos/robium.org
 npx astro add react --yes
 npm i @xterm/xterm@^6 @xterm/addon-fit@^0.11 @monaco-editor/react@^4.7 react-resizable-panels@^4
 ```
@@ -550,7 +550,7 @@ fi
 - [ ] **Step 4: Build, smoke, deploy**
 
 ```bash
-cd /Users/jazarium/repos/robium.org && make smoke && make image && make deploy && bash tests/smoke.sh https://robium.org | tail -1
+cd /Users/robium-ai/repos/robium.org && make smoke && make image && make deploy && bash tests/smoke.sh https://robium.org | tail -1
 ```
 
 - [ ] **Step 5: Manual prod E2E** (report results): open robium.org/demos/nav-trial → Start → Logs stream + booting → ready → Console `ros2 topic list` works → Files tree → open nav2.yaml in Editor → edit + Cmd-S → re-open shows change → Console `curl https://example.com` FAILS (egress) → Foxglove opens → Stop kills instance. Note any friction.

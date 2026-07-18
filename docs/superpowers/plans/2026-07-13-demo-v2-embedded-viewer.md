@@ -12,7 +12,7 @@
 
 ## Global Constraints
 
-- Repos: Tasks 1, 4, 5 in `/Users/jazarium/repos/robium.org`; Tasks 2–3 in `/Users/jazarium/repos/robium-applications/apps/nav-trial` (capture learnings per that repo's rules).
+- Repos: Tasks 1, 4, 5 in `/Users/robium-ai/repos/robium.org`; Tasks 2–3 in `/Users/robium-ai/repos/robium-applications/apps/nav-trial` (capture learnings per that repo's rules).
 - Cloud Run (spec): `concurrency=4`, `--session-affinity`, all other v1 values unchanged (`min=0,max=5,timeout=1800,cpu=4,mem=4Gi,port=8765,gen2,GZ_RELAY=127.0.0.1,GZ_IP=127.0.0.1`).
 - Demo service URL: `https://demo-nav-trial-902570464351.us-central1.run.app` (verified live).
 - Gateway HTTP contract (all tasks build against this, verbatim):
@@ -58,7 +58,7 @@ If assets 404 (absolute `/` paths), record the fix that works: `publicPath: 'aut
 - [ ] **Step 3: Connect check against the local demo container**
 
 ```bash
-cd /Users/jazarium/repos/robium-applications/apps/nav-trial && docker compose -f docker/compose.yaml --profile demo up -d demo
+cd /Users/robium-ai/repos/robium-applications/apps/nav-trial && docker compose -f docker/compose.yaml --profile demo up -d demo
 # browser: http://localhost:8090/viewer/?ds=foxglove-websocket&ds.url=ws://localhost:8765/?session=spike
 ```
 Expected: Lichtblick connects and lists topics (v1 container still has the bridge directly on 8765 — fine for this spike). Record the exact query-param format that worked.
@@ -74,7 +74,7 @@ In order, stop at the first that works, and record it with its exact code:
 
 `docs/superpowers/specs/2026-07-13-lichtblick-recipe.md` must contain: pinned tag, node/yarn versions used, build commands, real output dir, the publicPath patch (if needed), the working `ds`/`ds.url` format, the chosen layout mechanism with exact key/code, and any surprises. Commit:
 ```bash
-cd /Users/jazarium/repos/robium.org && git add docs && git commit -m "spike: lichtblick v1.27.0 build + subpath + layout recipe
+cd /Users/robium-ai/repos/robium.org && git add docs && git commit -m "spike: lichtblick v1.27.0 build + subpath + layout recipe
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 ```
@@ -382,7 +382,7 @@ Expected: handshake OK → status JSON `"ready": true` → 409/403 for the intru
 - [ ] **Step 8: Commit**
 
 ```bash
-cd /Users/jazarium/repos/robium-applications
+cd /Users/robium-ai/repos/robium-applications
 git add apps/nav-trial && git commit -m "feat(nav-trial): session gateway (ws tunnel + status + shutdown) and live status node
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
@@ -400,7 +400,7 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 - [ ] **Step 2: Build + deploy + verify**
 
 ```bash
-cd /Users/jazarium/repos/robium-applications/apps/nav-trial
+cd /Users/robium-ai/repos/robium-applications/apps/nav-trial
 make demo-image && make demo-deploy
 bash tests/check_ws.sh https://demo-nav-trial-902570464351.us-central1.run.app cloudsmoke
 n=0; until curl -sf "https://demo-nav-trial-902570464351.us-central1.run.app/status?session=cloudsmoke" | grep -q '"ready": *true'; do n=$((n+1)); [ $n -ge 40 ] && break; sleep 10; done
@@ -411,7 +411,7 @@ Expected: 101 handshake, then status JSON with `"ready": true` and an rtf value.
 - [ ] **Step 3: Commit + push**
 
 ```bash
-cd /Users/jazarium/repos/robium-applications
+cd /Users/robium-ai/repos/robium-applications
 git add apps/nav-trial && git commit -m "feat(nav-trial): demo Cloud Run concurrency=4 + session affinity for gateway endpoints
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>" && git push
@@ -453,7 +453,7 @@ fi
 
 - [ ] **Step 4: Build the container and verify**
 
-Run: `cd /Users/jazarium/repos/robium.org && make docker-smoke`
+Run: `cd /Users/robium-ai/repos/robium.org && make docker-smoke`
 Expected: existing checks + `ok: viewer served` … `SMOKE PASS`. (First build is slow — the Lichtblick stage compiles a large webpack app, ~5–15 min.)
 
 - [ ] **Step 5: Commit**
@@ -597,8 +597,8 @@ fi
 - [ ] **Step 3: Local E2E against the local demo container**
 
 ```bash
-cd /Users/jazarium/repos/robium-applications/apps/nav-trial && docker compose -f docker/compose.yaml --profile demo up -d demo
-cd /Users/jazarium/repos/robium.org && make smoke && npm run dev
+cd /Users/robium-ai/repos/robium-applications/apps/nav-trial && docker compose -f docker/compose.yaml --profile demo up -d demo
+cd /Users/robium-ai/repos/robium.org && make smoke && npm run dev
 # browser http://localhost:4321/demos/nav-trial — expect: viewer loads from /viewer/… 
 # NOTE: local dev serves the page but /viewer/ only exists in the container build;
 # for full local E2E use `make docker-smoke` + http://localhost:8080/demos/nav-trial

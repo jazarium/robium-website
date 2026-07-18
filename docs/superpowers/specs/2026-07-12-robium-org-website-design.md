@@ -1,7 +1,7 @@
 # robium.org website — design
 
 **Date:** 2026-07-12 · **Status:** approved (brainstorming session)
-**Repo:** `jazarium/robium-docs.org` · **Domain:** robium.org (owned) · **Host:** GCP Cloud Run
+**Repo:** `robium-ai/robium-docs.org` · **Domain:** robium.org (owned) · **Host:** GCP Cloud Run
 
 ## Purpose
 
@@ -43,7 +43,7 @@ must be real. No fake product surfaces, no aspirational interfaces.
   marquee animates with pure CSS). Plain CSS with custom properties for the
   tokens — no Tailwind (the design system is specific; hand CSS is smaller).
 - **Skill catalog generation:** a build-time script (`scripts/fetch-skills.mjs`)
-  fetches `jazarium/robium-docs`'s `skills/*/SKILL.md` frontmatter via the GitHub
+  fetches `robium-ai/robium-docs`'s `skills/*/SKILL.md` frontmatter via the GitHub
   API → `src/data/skills.json` (committed as fallback; refreshed on build).
   The grid renders from that JSON, so it cannot drift from the catalog.
 - Fonts self-hosted (Inter woff2) — no external font CDN.
@@ -71,14 +71,14 @@ must be real. No fake product surfaces, no aspirational interfaces.
    screenshot/clip; pass bar: autonomous nav on a self-built map, smoke
    green) and manip-trial (real PushT eval rollout video from
    `outputs/eval/`; pass bar: train + eval with metrics, smoke green in
-   ~40 s). Both link to `jazarium/robium-applications`.
+   ~40 s). Both link to `robium-ai/robium-applications`.
 6. **Integrations marquee** — horizontally auto-scrolling logo strip, pure
    CSS, pauses on hover: ROS 2, Nav2, Gazebo, LeRobot, Hugging Face,
    Isaac Sim, Foxglove, Rerun, RViz2, Docker, uv. Official logo assets used
    under each project's brand/nominative-use guidelines; grayscale/dimmed
    treatment to fit the theme, brightening on hover.
 7. **Get Started** — terminal block with the real install:
-   `/plugin marketplace add jazarium/robium-docs` then
+   `/plugin marketplace add robium-ai/robium-docs` then
    `/plugin install robium@robium`; link to the README for details.
 8. **Footer** — GitHub · robium-applications · MIT · contact email.
 
@@ -114,7 +114,7 @@ interactive playground, no newsletter, no CI/CD pipeline.
 
 ## Launch prerequisites / open risks
 
-1. **`jazarium/robium-docs` must be public** before launch — the install command
+1. **`robium-ai/robium-docs` must be public** before launch — the install command
    and the build-time catalog fetch both depend on it. Making it public is a
    user decision outside this repo.
 2. **Media assets:** PushT eval MP4 exists (manip-trial `outputs/eval/`);

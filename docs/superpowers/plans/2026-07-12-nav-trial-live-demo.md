@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- Two repos: tasks 1–3 in `/Users/jazarium/repos/robium-applications/apps/nav-trial` (capture learnings per that repo's CLAUDE.md — two-hats rule applies); task 4 in `/Users/jazarium/repos/robium.org`.
+- Two repos: tasks 1–3 in `/Users/robium-ai/repos/robium-applications/apps/nav-trial` (capture learnings per that repo's CLAUDE.md — two-hats rule applies); task 4 in `/Users/robium-ai/repos/robium.org`.
 - Cloud Run service values (from spec, verbatim): `concurrency=1`, `min-instances=0`, `max-instances=5`, `timeout=1800`, `cpu=4`, `memory=4Gi`, `port=8765`, region `us-central1`, project `robium-prod`.
 - Expected service URL (deterministic, project number 902570464351 — verify at deploy): `https://demo-nav-trial-902570464351.us-central1.run.app`.
 - Real content only on the site page; the reproduction story quotes the trial brief from robium-applications' README verbatim.
@@ -131,14 +131,14 @@ demo:
 
 - [ ] **Step 6: Build and verify the launch boots to readiness**
 
-Run: `cd /Users/jazarium/repos/robium-applications/apps/nav-trial && make build && docker compose -f docker/compose.yaml --profile demo up -d demo && timeout 180 bash -c 'until docker compose -f docker/compose.yaml logs demo | grep -q "DEMO READY"; do sleep 5; done' && docker compose -f docker/compose.yaml logs demo | grep "DEMO READY"`
+Run: `cd /Users/robium-ai/repos/robium-applications/apps/nav-trial && make build && docker compose -f docker/compose.yaml --profile demo up -d demo && timeout 180 bash -c 'until docker compose -f docker/compose.yaml logs demo | grep -q "DEMO READY"; do sleep 5; done' && docker compose -f docker/compose.yaml logs demo | grep "DEMO READY"`
 Expected: `DEMO READY rtf=0.9x` within ~2 minutes.
 
 - [ ] **Step 7: Tear down and commit**
 
 ```bash
 docker compose -f docker/compose.yaml --profile "*" down --remove-orphans
-cd /Users/jazarium/repos/robium-applications
+cd /Users/robium-ai/repos/robium-applications
 git add apps/nav-trial && git commit -m "feat(nav-trial): demo scenario — auto-initialized nav stack for live demo
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
@@ -201,7 +201,7 @@ Expected: `WS HANDSHAKE OK` → `DEMO READY rtf=…` → `goal 0 (0.3,0.5): Task
 - [ ] **Step 4: Commit**
 
 ```bash
-cd /Users/jazarium/repos/robium-applications
+cd /Users/robium-ai/repos/robium-applications
 git add apps/nav-trial && git commit -m "test(nav-trial): demo smoke — ws handshake + readiness + one goal
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
@@ -213,7 +213,7 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 
 **Files:**
 - Create: `apps/nav-trial/cloudbuild.yaml`
-- Modify: `apps/nav-trial/Makefile` (demo-image / demo-deploy + .PHONY), `apps/nav-trial/README.md` (demo section), `/Users/jazarium/repos/robium-applications/REGISTRY.md` (nav-trial card: demo line)
+- Modify: `apps/nav-trial/Makefile` (demo-image / demo-deploy + .PHONY), `apps/nav-trial/README.md` (demo section), `/Users/robium-ai/repos/robium-applications/REGISTRY.md` (nav-trial card: demo line)
 
 **Interfaces:**
 - Consumes: Task 2's `tests/check_ws.sh` (run against the live URL).
@@ -260,7 +260,7 @@ demo-deploy:
 
 - [ ] **Step 3: Build and deploy**
 
-Run: `cd /Users/jazarium/repos/robium-applications/apps/nav-trial && make demo-image && make demo-deploy`
+Run: `cd /Users/robium-ai/repos/robium-applications/apps/nav-trial && make demo-image && make demo-deploy`
 Expected: Cloud Build SUCCESS (amd64 image, ~5–10 min), then `Service URL: https://demo-nav-trial-902570464351.us-central1.run.app`. If the URL differs, record the actual one — Task 4 must use it.
 
 - [ ] **Step 4: Verify the live service (this is the spec's risk-1/3/4 measurement)**
@@ -292,7 +292,7 @@ Expected: `DEMO READY rtf=<x>`. **Record rtf.** If rtf < 0.5, redeploy with `--c
 Append any friction hit during Tasks 1–3 to `learnings/2026-07-12.md` per the capture taxonomy (e.g. Cloud Run + foxglove_bridge behavior — candidate content for the foxglove/integration skills).
 
 ```bash
-cd /Users/jazarium/repos/robium-applications
+cd /Users/robium-ai/repos/robium-applications
 git add apps/nav-trial REGISTRY.md learnings/ && git commit -m "feat(nav-trial): Cloud Run live-demo deploy (demo-nav-trial) + registry/docs
 
 Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>" && git push
@@ -316,7 +316,7 @@ WebFetch `https://docs.foxglove.dev/docs/connecting-to-data/frameworks/ros2#foxg
 
 - [ ] **Step 2: Copy the layout file**
 
-Run: `mkdir -p public/demos && cp /Users/jazarium/repos/robium-applications/apps/nav-trial/foxglove/nav-trial-layout.json public/demos/nav-trial-layout.json`
+Run: `mkdir -p public/demos && cp /Users/robium-ai/repos/robium-applications/apps/nav-trial/foxglove/nav-trial-layout.json public/demos/nav-trial-layout.json`
 
 - [ ] **Step 3: Write `src/pages/demos/nav-trial.astro`**
 
@@ -386,7 +386,7 @@ const FOXGLOVE_URL =
         <p class="sub">
           Everything you're driving was built by Claude Code with the robium
           plugin, from this brief (verbatim from the
-          <a href="https://github.com/jazarium/robium-applications">robium-applications</a>
+          <a href="https://github.com/robium-ai/robium-applications">robium-applications</a>
           proving ground):
         </p>
         <Terminal title="the brief that produced nav-trial">
@@ -456,7 +456,7 @@ fi
 
 - [ ] **Step 6: Build, smoke, deploy, verify live**
 
-Run: `cd /Users/jazarium/repos/robium.org && make smoke && make image && make deploy && bash tests/smoke.sh https://robium.org && curl -s https://robium.org/demos/nav-trial/ | grep -q "app.foxglove.dev" && echo LIVE-OK`
+Run: `cd /Users/robium-ai/repos/robium.org && make smoke && make image && make deploy && bash tests/smoke.sh https://robium.org && curl -s https://robium.org/demos/nav-trial/ | grep -q "app.foxglove.dev" && echo LIVE-OK`
 Expected: `SMOKE PASS` (local, with the 4 new checks), deploy succeeds, `SMOKE PASS` (live), `LIVE-OK`.
 
 - [ ] **Step 7: End-to-end manual check + commit**
