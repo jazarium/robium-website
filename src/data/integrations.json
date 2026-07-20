@@ -1,13 +1,14 @@
 [
   { "name": "ROS 2", "file": "ros.svg" },
-  { "name": "Nav2", "file": "nav2.svg" },
+  { "name": "Nav2", "file": "nav2.png" },
   { "name": "Gazebo", "file": "gazebo.svg" },
-  { "name": "LeRobot", "file": "lerobot.svg" },
+  { "name": "LeRobot", "file": "lerobot.png" },
   { "name": "Hugging Face", "file": "huggingface.svg" },
   { "name": "Isaac Sim", "file": "nvidia.svg" },
+  { "name": "MuJoCo", "file": "mujoco.svg" },
   { "name": "Foxglove", "file": "foxglove.svg" },
-  { "name": "Rerun", "file": "rerun.svg" },
-  { "name": "RViz2", "file": "rviz2.svg" },
+  { "name": "Rerun", "file": "rerun.png" },
+  { "name": "RViz2", "file": "ros.svg" },
   { "name": "Docker", "file": "docker.svg" },
   { "name": "uv", "file": "uv.svg" }
 ]

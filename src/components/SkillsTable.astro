@@ -2,13 +2,22 @@
 // Grouping, ordering and teaser text come from src/lib/catalog.ts so this table
 // and the catalog belt above it can never disagree about the catalog.
 import { allSkills as skills, byName, groups, tagsFor, teaser } from '../lib/catalog';
+import integrations from '../data/integrations.json';
+import skillBrands from '../data/skill-brands.json';
 
 const REPO = 'https://github.com/robium-ai/robium-plugin/tree/main/skills';
+
+const logoFor = (skill: string): { file: string; brand: string } | null => {
+  const brand = (skillBrands as Record<string, string>)[skill];
+  if (!brand) return null;
+  const entry = integrations.find((i) => i.name === brand);
+  return entry ? { file: entry.file, brand } : null;
+};
 
 const rows = groups.flatMap((g) =>
   g.names.map((name) => {
     const s = byName.get(name)!;
-    return { name, pillar: g.title, desc: teaser(s.description), tags: tagsFor(name) };
+    return { name, pillar: g.title, desc: teaser(s.description), tags: tagsFor(name), logo: logoFor(name) };
   })
 );
 ---
@@ -36,7 +45,10 @@ const rows = groups.flatMap((g) =>
       <tbody>
         {rows.map((r) => (
           <tr class="skill-row" data-pillar={r.pillar}>
-            <td class="name"><a href={`${REPO}/${r.name}`}>{r.name}</a></td>
+            <td class="name">
+              {r.logo && <img class="brand" src={`/logos/${r.logo.file}`} alt={r.logo.brand} loading="lazy" height="16" />}
+              <a href={`${REPO}/${r.name}`}>{r.name}</a>
+            </td>
             <td class="desc">{r.desc}</td>
             <td class="tags">{r.tags.map((t) => <span class="tag">{t}</span>)}</td>
           </tr>
@@ -70,6 +82,10 @@ const rows = groups.flatMap((g) =>
   td.name a {
     font: 600 13.5px var(--mono); color: var(--ink); text-decoration: none;
     border-bottom: 1px solid var(--accent); white-space: nowrap;
+  }
+  td.name .brand {
+    height: 16px; width: auto; max-width: 72px; object-fit: contain;
+    vertical-align: -3px; margin-right: 8px; opacity: 0.9;
   }
   td.desc { color: var(--ink2); font-size: 13.5px; line-height: 1.55; min-width: 300px; }
   td.tags { min-width: 200px; }

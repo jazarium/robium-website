@@ -1,0 +1,13 @@
+{
+  "_comment": "Maps tool skills to their brand entry in integrations.json (by name). Umbrella skills have no brand mark and are deliberately absent. Logos live in public/logos/ — provenance in public/logos/README.md.",
+  "ros2": "ROS 2",
+  "nav2": "Nav2",
+  "gazebo": "Gazebo",
+  "lerobot": "LeRobot",
+  "huggingface": "Hugging Face",
+  "isaac-sim": "Isaac Sim",
+  "isaac-lab": "Isaac Sim",
+  "foxglove": "Foxglove",
+  "rerun": "Rerun",
+  "rviz2": "RViz2"
+}
