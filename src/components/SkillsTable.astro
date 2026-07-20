@@ -90,7 +90,7 @@ const rows = groups.flatMap((g) =>
     background: var(--bg); color: var(--ink2); cursor: pointer;
     transition: color 150ms, border-color 150ms;
   }
-  .chip.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .chip.on { background: var(--accent); color: var(--on-accent); border-color: var(--accent); }
   .chip:hover:not(.on) { border-color: var(--ink); color: var(--ink); }
 
   .table-scroll { overflow-x: auto; margin-top: 16px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg); }
@@ -105,7 +105,7 @@ const rows = groups.flatMap((g) =>
   tr[hidden] { display: none; }
   td.name a {
     font: 600 13.5px var(--mono); color: var(--ink); text-decoration: none;
-    border-bottom: 1px solid var(--yellow-mid); white-space: nowrap;
+    border-bottom: 1px solid var(--accent); white-space: nowrap;
   }
   td.desc { color: var(--ink2); font-size: 13.5px; line-height: 1.55; min-width: 300px; }
   td.tags { min-width: 200px; }

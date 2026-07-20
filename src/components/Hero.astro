@@ -34,16 +34,16 @@
   .sub { color: var(--ink2); margin: 18px 0 0; font-size: 16.5px; max-width: 34em; text-wrap: pretty; }
   .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; align-items: center; }
   .fine { margin: 16px 0 0; font-size: 13px; color: var(--muted); }
-  .fine a { color: var(--yellow-ink); }
+  .fine a { color: var(--accent-ink); }
 
   .term { border: 1px solid var(--border2); border-radius: 10px; overflow: hidden; background: var(--panel); }
-  .term-bar { display: flex; align-items: center; background: #F1F1F1; border-bottom: 1px solid var(--border); padding: 9px 14px; gap: 8px; }
+  .term-bar { display: flex; align-items: center; background: var(--tint); border-bottom: 1px solid var(--border); padding: 9px 14px; gap: 8px; }
   .term-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--border2); display: inline-block; }
   .term-bar span { font: 500 12px var(--mono); color: var(--muted); margin-left: 8px; }
   .term pre { margin: 0; padding: 20px 22px; font: 13.5px/1.85 var(--mono); color: var(--ink2); overflow-x: auto; }
   .term .cmd { color: var(--ink); }
-  .term .cmd::before { content: '$ '; color: var(--yellow-mid); font-weight: 700; }
-  .term .ask { color: var(--yellow-ink); }
+  .term .cmd::before { content: '$ '; color: var(--accent); font-weight: 700; }
+  .term .ask { color: var(--accent-ink); }
 
   @media (max-width: 860px) {
     .hero { padding: 56px 0; }
