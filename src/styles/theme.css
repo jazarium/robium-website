@@ -99,19 +99,21 @@ body.landing {
 }
 
 html[data-theme='dark'] body.landing {
-  /* dark — Midnight & Cyan */
-  --bg: #0B1220;
-  --tint: #0F1728;
-  --panel: #141D31;
-  --border: #1E2A42;
-  --border2: #2B3A57;
-  --ink: #E6EDF7;
-  --ink2: #93A3BC;
-  --muted: #5B6B85;
-  --accent: #22D3EE;
-  --accent-ink: #67E3F4;
-  --on-accent: #06222A;
-  --hover-row: #102030;
+  /* dark — the same slate ramp read from the other end (bg = light mode's
+     ink), and the same cobalt hue lightened for dark ground. Toggling should
+     read as "same palette, lights off", not a rebrand. */
+  --bg: #0F172A;
+  --tint: #131D33;
+  --panel: #1B2740;
+  --border: #24324D;
+  --border2: #33455F;
+  --ink: #F1F5F9;
+  --ink2: #A5B4C8;
+  --muted: #64748B;
+  --accent: #4C8DFF;
+  --accent-ink: #85B3FF;
+  --on-accent: #0B1220;
+  --hover-row: #16233C;
 }
 
 body.landing section { padding: 68px 0; border-top: 1px solid var(--border); }
