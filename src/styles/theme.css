@@ -1,4 +1,6 @@
 @import '@fontsource-variable/inter';
+/* Poppins SemiBold — the brand wordmark's typeface, used only by the lockup. */
+@import '@fontsource/poppins/600.css';
 
 :root {
   --bg: #090B11;

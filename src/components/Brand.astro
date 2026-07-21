@@ -1,27 +1,34 @@
 ---
-// The brand lockup: the robium mark + wordmark, shipped as a designed image.
-// Two files — dark-navy wordmark for light backgrounds, near-white wordmark for
-// dark — swapped by theme; only the active one is painted. data-theme is stamped
-// pre-paint in Base.astro, so there is no wrong-logo flash on load.
-const RATIO = 2294 / 639; // trimmed lockup aspect ratio
+// The brand lockup: the robium robot mark + "robium" wordmark in Poppins
+// SemiBold. The mark ships in two tints — the light-accent blue for light
+// backgrounds, the brighter dark-accent blue for dark — swapped by theme so it
+// stays vivid on both grounds. data-theme is stamped pre-paint in Base.astro,
+// so there is no wrong-tint flash on load.
+const RATIO = 1890 / 1779; // trimmed mark aspect ratio
 interface Props {
-  /** Rendered logo height in px. Width follows the lockup's aspect ratio. */
+  /** Mark height in px. The wordmark scales from it. */
   size?: number;
   class?: string;
 }
 const { size = 30, class: className = '' } = Astro.props;
 const w = Math.round(size * RATIO);
 ---
-<a href="/" class:list={['brand', className]} aria-label="robium — home" style={`--logo-h: ${size}px`}>
-  <img class="lockup light" src="/brand/robium-logo.png" alt="robium" width={w} height={size} />
-  <img class="lockup dark" src="/brand/robium-logo-dark.png" alt="robium" width={w} height={size} />
+<a href="/" class:list={['brand', className]} aria-label="robium — home" style={`--mark: ${size}px`}>
+  <img class="mark light" src="/brand/robium-mark.png" alt="" width={w} height={size} />
+  <img class="mark dark" src="/brand/robium-mark-dark.png" alt="" width={w} height={size} />
+  <span class="word">robium</span>
 </a>
 
 <style>
-  .brand { display: inline-flex; text-decoration: none; }
-  .lockup { height: var(--logo-h); width: auto; display: block; }
-  /* Dark-wordmark lockup on light ground; light-wordmark lockup on dark ground. */
-  .lockup.dark { display: none; }
-  :global(html[data-theme='dark']) .lockup.light { display: none; }
-  :global(html[data-theme='dark']) .lockup.dark { display: block; }
+  .brand { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+  .mark { height: var(--mark); width: auto; display: block; flex: none; }
+  .mark.dark { display: none; }
+  :global(html[data-theme='dark']) .mark.light { display: none; }
+  :global(html[data-theme='dark']) .mark.dark { display: block; }
+
+  .word {
+    font-family: 'Poppins', system-ui, sans-serif; font-weight: 600;
+    font-size: calc(var(--mark) * 0.66); line-height: 1;
+    letter-spacing: -0.01em; color: var(--ink);
+  }
 </style>
