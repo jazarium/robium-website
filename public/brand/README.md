@@ -13,7 +13,8 @@ The robium robot-and-layers mark, transparent background, ~1889×1779.
 
 - `robium-mark-blue.png` — `#2563EB` (same artwork as the light mark).
 - `robium-mark-white.png` — `#FFFFFF`, for dark or coloured backgrounds.
-- `robium-mark-black.png` — `#000000`, for one-colour / print use.
+- `robium-mark-navy.png` — `#0F172A` (the brand ink), for one-colour / print
+  use on light backgrounds.
 
-Swap the mark by background: never place the black mark on a dark ground or the
+Swap the mark by background: never place the navy mark on a dark ground or the
 white mark on a light one.
